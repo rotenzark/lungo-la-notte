@@ -1,0 +1,358 @@
+/* Lungo la Notte — Bespoke Studio. La carta gastronomica delle quattro terre (Piemonte, Oltrepò, Liguria, Milano), nel segno
+   della «Italie Gastronomique» di Umberto Zimelli (1931). Firma: la notte scende sulla carta (vedi js/main.js). */
+:root {
+  --notte: #0E1733;
+  --notte-2: #17234A;
+  --notte-3: #24336A;
+  --tenda: #1F3C96;
+  --tenda-2: #2B4DB3;
+  --carta: #F4EAD3;
+  --carta-2: #EADDBF;
+  --carta-3: #FBF5E8;
+  --terra: #C9472F;
+  --terra-2: #DB9377;
+  --mare: #A9DCE6;
+  --mare-2: #6FB3C9;
+  --alpi: #C9BCE3;
+  --nastro: #F3DB8E;
+  --lume: #FFC45C;
+  --lume-2: #FFE7A8;
+  --inchiostro: #1D1A24;
+  --inchiostro-2: #4A4452;
+  --mattone: #9E3F27;
+  --f-deco: 'Federant', 'Georgia', serif; /* SOLO maiuscolo: la v minuscola si legge u */
+  --f-titolo: 'Limelight', 'Georgia', serif;
+  --f-testo: 'Sorts Mill Goudy', 'Georgia', serif;
+  --f-eti: 'Josefin Slab', 'Georgia', serif;
+  --f-firma: 'Cookie', 'Brush Script MT', cursive;
+  --f-sotto: 'Poiret One', 'Helvetica', sans-serif;
+  --gutter: clamp(16px, 4vw, 40px);
+  --largo: 1240px;
+}
+
+[hidden] { display: none !important; }
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; scroll-padding-top: 84px; }
+@media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
+body { margin: 0; background: var(--carta); color: var(--inchiostro); font: 400 1.16rem/1.58 var(--f-testo); -webkit-font-smoothing: antialiased; }
+img { display: block; max-width: 100%; height: auto; }
+a { color: inherit; }
+p { margin: 0 0 1em; }
+h1, h2, h3 { margin: 0; font-weight: 400; }
+:focus-visible { outline: 3px solid var(--tenda); outline-offset: 3px; }
+main > section, main > aside { overflow-x: clip; }
+
+/* ── reveal: nascosti solo con JS ── */
+.js .reveal { opacity: 0; }
+.js .reveal.in-view { opacity: 1; transition: opacity .6s ease; }
+html:not(.js) .reveal { opacity: 1; }
+.reduced-motion .reveal { opacity: 1 !important; }
+
+/* ── il marchio: la loro insegna, il corsivo bianco sul blu della tenda ── */
+.marchio { display: inline-flex; flex-direction: column; align-items: center; margin: 0; padding: .1em .7em .32em; background: var(--tenda); color: #FFFBF1; border-radius: .18em; box-shadow: 0 .12em 0 rgba(0, 0, 0, .25); line-height: 1; white-space: nowrap; }
+.marchio__nome { font: 400 2.1em/1.05 var(--f-firma); letter-spacing: .01em; }
+.marchio__sotto { font: 400 .7em/1 var(--f-sotto); letter-spacing: .08em; margin-top: -.12em; padding-left: 2.2em; align-self: center; }
+.marchio--grande { font-size: clamp(1.5rem, 5.4vw, 2.6rem); }
+.marchio--piede { font-size: 1rem; margin-bottom: 18px; }
+
+/* ── intro ── */
+.intro { position: fixed; inset: 0; z-index: 300; display: flex; align-items: center; justify-content: center; background: var(--notte); color: var(--carta); transition: opacity .5s ease; animation: intro-sicura .01s linear 8s forwards; }
+.no-js .intro { display: none; }
+.intro.hide { opacity: 0; pointer-events: none; }
+@keyframes intro-sicura { to { opacity: 0; visibility: hidden; pointer-events: none; } }
+.intro__in { display: flex; flex-direction: column; align-items: center; gap: 22px; padding: 0 24px; text-align: center; animation: intro-su .9s ease both; }
+@keyframes intro-su { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+.intro__cosa { margin: 0; font: italic 400 1.2rem/1.4 var(--f-testo); color: var(--lume-2); }
+.intro__salta { position: absolute; right: 20px; bottom: 20px; background: none; border: 1.5px solid rgba(244, 234, 211, .6); border-radius: 3px; color: var(--carta); padding: 10px 16px; font: 700 .8rem/1 var(--f-eti); letter-spacing: .14em; text-transform: uppercase; cursor: pointer; }
+
+/* ── barra mobile, lightbox ── */
+.barra { position: fixed; left: 0; right: 0; bottom: 0; z-index: 40; display: none; grid-template-columns: repeat(4, 1fr); background: var(--notte); border-top: 3px solid var(--nastro); padding-bottom: env(safe-area-inset-bottom); transform: translateY(110%); transition: transform .3s ease; }
+.barra.is-visible { transform: none; }
+.barra a { padding: 16px 4px; text-align: center; text-decoration: none; color: var(--carta); font: 700 .84rem/1 var(--f-eti); letter-spacing: .08em; text-transform: uppercase; border-left: 1px solid rgba(244, 234, 211, .16); }
+.barra a:first-child { border-left: 0; background: var(--tenda); }
+#lightbox { position: fixed; inset: 0; z-index: 200; background: rgba(9, 14, 32, .95); display: flex; align-items: center; justify-content: center; padding: 24px; }
+#lightboxImg { max-width: 94vw; max-height: 88vh; width: auto; height: auto; border: 6px solid var(--carta-3); }
+#lightboxClose { position: absolute; top: 14px; right: 14px; width: 48px; height: 48px; border: 1.5px solid rgba(244, 234, 211, .6); border-radius: 3px; background: none; color: var(--carta); font: 400 28px/1 var(--f-testo); cursor: pointer; }
+
+/* ── testata ── */
+.testata { position: sticky; top: 0; z-index: 50; display: flex; align-items: center; gap: clamp(12px, 2vw, 26px); padding: 8px var(--gutter); background: var(--carta-3); border-bottom: 2px solid var(--inchiostro); box-shadow: 0 4px 0 var(--nastro), 0 6px 0 var(--inchiostro); }
+.testata__logo { display: inline-flex; text-decoration: none; font-size: .78rem; padding: 4px 0; }
+.testata__nav { display: flex; align-items: center; gap: clamp(12px, 1.6vw, 24px); margin-left: auto; }
+.testata__nav a { display: inline-flex; align-items: baseline; gap: 6px; text-decoration: none; font: 700 .92rem/1 var(--f-eti); letter-spacing: .1em; text-transform: uppercase; padding: 10px 0; white-space: nowrap; }
+.testata__nav a:hover { color: var(--mattone); }
+.rom { font: italic 400 1.02rem/1 var(--f-testo); color: var(--mattone); letter-spacing: 0; text-transform: none; }
+.testata__destra { display: flex; align-items: center; gap: 12px; }
+.lingue { display: flex; border: 1.5px solid var(--inchiostro); border-radius: 3px; overflow: hidden; }
+.lingue button { background: none; border: 0; padding: 7px 10px; font: 700 .8rem/1 var(--f-eti); letter-spacing: .08em; cursor: pointer; color: var(--inchiostro); }
+.lingue button[aria-pressed="true"] { background: var(--inchiostro); color: var(--carta-3); }
+.testata__tel { text-decoration: none; background: var(--tenda); color: #FFFBF1; border-radius: 3px; padding: 11px 16px; font: 700 .86rem/1 var(--f-eti); letter-spacing: .08em; text-transform: uppercase; }
+#burger { display: none; width: 46px; height: 46px; border: 1.5px solid var(--inchiostro); border-radius: 3px; background: none; cursor: pointer; flex-direction: column; align-items: center; justify-content: center; gap: 5px; padding: 0; }
+#burger span { display: block; width: 18px; height: 2px; background: var(--inchiostro); }
+
+/* ── bottoni ── */
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 48px; padding: 12px 22px; border-radius: 3px; text-decoration: none; font: 700 .95rem/1.1 var(--f-eti); letter-spacing: .08em; text-transform: uppercase; border: 2px solid var(--inchiostro); cursor: pointer; }
+.btn--tenda { background: var(--tenda); color: #FFFBF1; border-color: var(--tenda); box-shadow: 4px 4px 0 var(--inchiostro); }
+.btn--tenda:hover { background: var(--tenda-2); }
+.btn--carta { background: var(--nastro); color: var(--inchiostro); box-shadow: 4px 4px 0 var(--inchiostro); }
+
+/* ── il cartiglio (il nastro di Zimelli) ── */
+.cartiglio { display: inline-flex; align-items: center; gap: 14px; margin: 0 0 22px; padding: 8px 40px 9px; background: var(--nastro); color: var(--inchiostro); font: 400 1.2rem/1.1 var(--f-deco); letter-spacing: .2em; text-transform: uppercase; clip-path: polygon(0 0, 100% 0, calc(100% - 18px) 50%, 100% 100%, 0 100%, 18px 50%); box-shadow: inset 0 3px 0 var(--inchiostro), inset 0 -3px 0 var(--inchiostro); }
+.cartiglio__n { font: italic 400 1.1rem/1 var(--f-testo); letter-spacing: 0; color: var(--mattone); }
+.cartiglio--notte { background: var(--lume-2); }
+
+/* ── apertura: il testo e la carta ── */
+.apertura { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: clamp(28px, 4vw, 64px); align-items: center; max-width: var(--largo); margin: 0 auto; padding: clamp(36px, 6vw, 72px) var(--gutter) clamp(48px, 7vw, 88px); }
+.occhiello { margin: 0 0 18px; font: 700 .86rem/1.5 var(--f-eti); letter-spacing: .14em; text-transform: uppercase; color: var(--mattone); }
+.apertura h1 { font: 400 clamp(2.3rem, 4.9vw, 4.5rem)/1.08 var(--f-titolo); letter-spacing: -.005em; margin-bottom: 26px; }
+.apertura__s { font-size: 1.28rem; line-height: 1.55; max-width: 34em; }
+.apertura__tasti { display: flex; flex-wrap: wrap; gap: 14px; margin: 28px 0 22px; }
+.apertura__stato { font: italic 400 1.08rem/1.5 var(--f-testo); margin-bottom: 6px; }
+#orarioStato { font-style: normal; color: var(--mattone); }
+#orarioStato:not(:empty)::after { content: " · "; color: var(--mattone); }
+.apertura__voto { font: 600 .95rem/1.4 var(--f-eti); color: var(--inchiostro-2); }
+.apertura__voto [aria-hidden] { color: var(--terra); }
+.apertura__carta { margin: 0; }
+
+/* ── la carta SVG ── */
+.carta { display: block; width: 100%; height: auto; background: var(--notte); box-shadow: 10px 10px 0 var(--inchiostro); }
+.carta .mare { stroke: none; }
+.carta .strato--notte .mare { fill: var(--notte); }
+.carta .strato--notte .estero { fill: #1B2447; }
+.carta .onde { fill: url(#p-onde); }
+.carta .strato--notte .onde { opacity: .16; }
+.carta .strato--notte .reg { fill: #211C33; stroke: #3A355A; stroke-width: 1.2; }
+.carta .strato--notte .reg--sua { fill: #2A2140; stroke: #4B4070; }
+.carta .strato--notte .lago { fill: var(--notte); stroke: #2C3C74; stroke-width: 1; }
+.carta .strato--notte .fiume, .carta .strato--notte .naviglio { fill: none; stroke: #2E3F78; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.carta .strato--giorno { opacity: 0; }
+.carta .strato--giorno .mare { fill: var(--mare); }
+.carta .strato--giorno .estero { fill: var(--alpi); }
+.carta .strato--giorno .onde { opacity: .9; }
+.carta .strato--giorno .reg { fill: var(--terra-2); stroke: #F7EEDC; stroke-width: 1.6; }
+.carta .strato--giorno .reg--sua { fill: var(--terra); }
+.carta .strato--giorno .lago { fill: var(--mare); stroke: #5E93C4; stroke-width: 1; }
+.carta .strato--giorno .fiume { fill: none; stroke: #4F8FC6; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
+.carta .strato--giorno .naviglio { fill: none; stroke: #2F6BB0; stroke-width: 3.4; stroke-linecap: round; stroke-linejoin: round; }
+#p-onde path { stroke: #9D8CC6; }
+.carta .stelle circle { fill: var(--carta-3); opacity: .85; }
+.carta .sole { opacity: 0; }
+.carta .sole circle { fill: #FFD35C; stroke: #E09A2E; stroke-width: 2; }
+.carta .sole line { stroke: #F2B84B; stroke-width: 5; stroke-linecap: round; }
+.carta .luna { fill: var(--carta-3); }
+.carta .luce__alone { fill: url(#r-luce); }
+.carta .luce__nocciolo { fill: #FFF8E6; }
+.carta .naviglio-luce path { fill: none; stroke-linecap: round; stroke-linejoin: round; }
+.carta .naviglio-luce__alone { stroke: #FFB547; stroke-width: 11; opacity: .75; }
+.carta .naviglio-luce__filo { stroke: var(--lume-2); stroke-width: 3.4; }
+.carta .punti circle { fill: var(--inchiostro); stroke: var(--nastro); stroke-width: 2; }
+.carta .porta__filo { stroke: var(--nastro); stroke-width: 2; stroke-dasharray: 4 4; }
+.carta .porta__luce { fill: var(--lume-2); stroke: var(--inchiostro); stroke-width: 1.5; }
+.carta .targa__fondo { fill: var(--tenda); stroke: var(--nastro); stroke-width: 3; }
+.carta .targa__nome { font: 400 50px/1 var(--f-firma); fill: #FFF8E8; text-anchor: middle; }
+.carta .targa__sotto { font: 700 19px/1 var(--f-eti); fill: var(--nastro); text-anchor: middle; letter-spacing: .02em; }
+.carta .nastro__ombra { fill: rgba(0, 0, 0, .38); }
+.carta .nastro__fondo { fill: var(--nastro); stroke: var(--inchiostro); stroke-width: 2.4; stroke-linejoin: round; }
+.carta .nastro__filo { fill: none; stroke: var(--inchiostro); stroke-width: 1; opacity: .45; }
+.carta .nastro__t { font-family: var(--f-deco); fill: var(--inchiostro); text-anchor: middle; letter-spacing: .12em; }
+.carta .rosa__cerchio { fill: none; stroke: var(--nastro); stroke-width: 2; opacity: .8; }
+.carta .rosa__cerchio--in { stroke-dasharray: 3 5; }
+.carta .rosa__punta { fill: var(--nastro); stroke: var(--inchiostro); stroke-width: 1.1; stroke-linejoin: round; }
+.carta .rosa__punta--ombra { fill: var(--terra); }
+.carta .rosa__n { font: 400 20px/1 var(--f-deco); fill: var(--nastro); text-anchor: middle; }
+.carta .mare-t { font: italic 400 28px/1 var(--f-testo); fill: #8FA6DD; letter-spacing: .06em; text-anchor: middle; }
+.carta .cornice__banda { fill: none; stroke: var(--nastro); stroke-width: 16; }
+.carta .cornice__catena { fill: none; stroke: var(--terra); stroke-width: 5; stroke-dasharray: .1 13; stroke-linecap: round; }
+.carta .cornice__filo { fill: none; stroke: var(--inchiostro); stroke-width: 2; }
+.carta .cornice__targhetta rect { fill: var(--nastro); stroke: var(--inchiostro); stroke-width: 2; }
+.carta .cornice__targhetta text { font: 400 18px/1 var(--f-deco); letter-spacing: .3em; text-anchor: middle; fill: var(--inchiostro); }
+/* il giorno (classe messa dal JS o dall'interruttore): colori di Zimelli, luci spente */
+.carta.is-giorno .strato--giorno, .carta.is-giorno .sole { opacity: 1; }
+.carta.is-giorno .luci, .carta.is-giorno .porta, .carta.is-giorno .stelle, .carta.is-giorno .luna, .carta.is-giorno .naviglio-luce { opacity: 0; }
+.carta.is-giorno .mare-t { fill: #2F5F9E; }
+.carta.is-giorno .rosa__n { fill: var(--inchiostro); }
+
+.carta-comandi { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 18px; margin-top: 26px; }
+.interruttore { display: inline-flex; border: 2px solid var(--inchiostro); border-radius: 3px; overflow: hidden; background: var(--carta-3); }
+.no-js .interruttore, .no-js .carta-stato { display: none; }
+.interruttore button { min-height: 44px; padding: 10px 18px; border: 0; background: none; font: 700 .9rem/1 var(--f-eti); letter-spacing: .1em; text-transform: uppercase; color: var(--inchiostro); cursor: pointer; }
+.interruttore button + button { border-left: 2px solid var(--inchiostro); }
+.interruttore button[aria-pressed="true"] { background: var(--notte); color: var(--lume-2); }
+#bottoneGiorno[aria-pressed="true"] { background: var(--nastro); color: var(--inchiostro); }
+.carta-stato { flex: 1 1 14em; margin: 0; font: italic 400 1rem/1.4 var(--f-testo); color: var(--inchiostro-2); min-height: 1.4em; }
+.legenda-mini { flex: 1 1 100%; display: flex; flex-wrap: wrap; gap: 6px 22px; margin: 0; padding: 12px 0 0; list-style: none; border-top: 1.5px dotted var(--inchiostro-2); font: 400 1.02rem/1.4 var(--f-testo); }
+.legenda-mini li { display: inline-flex; align-items: center; gap: 8px; }
+.punto { display: inline-block; border-radius: 50%; background: radial-gradient(circle, #FFF6DD 0 22%, var(--lume) 40%, rgba(255, 181, 71, 0) 72%); box-shadow: 0 0 0 1.5px var(--inchiostro); }
+.punto--s { width: 10px; height: 10px; }
+.punto--m { width: 15px; height: 15px; }
+.punto--l { width: 22px; height: 22px; }
+.linea { display: inline-block; width: 26px; height: 4px; border-radius: 2px; background: var(--lume); box-shadow: 0 0 0 1.5px var(--inchiostro); }
+
+/* ── le terre ── */
+.terra { max-width: var(--largo); margin: 0 auto; padding: clamp(64px, 9vw, 120px) var(--gutter); }
+.terra h2 { font: 400 clamp(2.2rem, 4.6vw, 4rem)/1.08 var(--f-titolo); margin-bottom: 24px; }
+.terra__lead { font-size: 1.3rem; line-height: 1.55; }
+.foto { margin: 0; }
+.foto-btn { display: block; width: 100%; padding: 0; border: 2px solid var(--inchiostro); background: none; cursor: zoom-in; }
+.foto-btn img { width: 100%; height: 100%; object-fit: cover; }
+.didascalia { margin-top: 10px; font: 600 .92rem/1.4 var(--f-eti); color: var(--inchiostro-2); }
+
+.terra--piemonte { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); grid-template-rows: auto 1fr; grid-template-areas: "testa foto" "piatti foto"; gap: 28px clamp(28px, 5vw, 72px); align-items: start; }
+.terra--piemonte .terra__testa { grid-area: testa; }
+.terra--piemonte .terra__piatti { grid-area: piatti; display: grid; gap: 30px; }
+.terra__foto--piemonte { grid-area: foto; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 16px; }
+.terra__foto--piemonte .foto-btn { box-shadow: 6px 6px 0 var(--terra); }
+.terra__foto--piemonte .foto--alta { grid-row: span 2; }
+.terra__foto--piemonte .foto--alta .foto-btn { height: calc(100% - 34px); }
+.terra__foto--piemonte .foto:last-child { grid-column: 1 / -1; }
+.terra__foto--piemonte .foto:last-child .foto-btn { aspect-ratio: 16 / 9; }
+.piatti { border-top: 2px solid var(--inchiostro); padding-top: 14px; }
+.piatti__t { margin-bottom: 10px; font: 700 .95rem/1.2 var(--f-eti); letter-spacing: .14em; text-transform: uppercase; color: var(--mattone); }
+.piatti__l { margin: 0; padding: 0; list-style: none; }
+.piatti__l li { padding: 8px 0; border-bottom: 1.5px dotted rgba(29, 26, 36, .35); }
+.piatti__nota { margin: 14px 0 0; font-style: italic; color: var(--inchiostro-2); }
+
+.oltrepo { display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 48px var(--gutter); text-align: center; background: var(--carta-2); border-top: 1.5px dotted var(--inchiostro-2); border-bottom: 1.5px dotted var(--inchiostro-2); }
+.oltrepo__nastro { display: inline-flex; align-items: center; gap: 14px; margin: 0; padding: 8px 40px 10px; background: var(--nastro); font: 400 clamp(1.02rem, 2vw, 1.35rem)/1.2 var(--f-deco); letter-spacing: .12em; text-transform: uppercase; clip-path: polygon(0 0, 100% 0, calc(100% - 18px) 50%, 100% 100%, 0 100%, 18px 50%); box-shadow: inset 0 3px 0 var(--inchiostro), inset 0 -3px 0 var(--inchiostro); }
+.oltrepo__nastro::before { content: ""; width: 12px; height: 12px; border-radius: 50%; background: radial-gradient(circle, #FFF6DD 0 22%, var(--lume) 40%, rgba(255, 181, 71, 0) 72%); box-shadow: 0 0 0 1.5px var(--inchiostro); flex: none; }
+.oltrepo__s { margin: 8px 0 0; font-style: italic; color: var(--inchiostro-2); }
+
+.terra--liguria { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, .85fr); gap: clamp(28px, 5vw, 80px); align-items: center; max-width: none; padding-left: max(var(--gutter), calc((100% - var(--largo)) / 2 + var(--gutter))); padding-right: max(var(--gutter), calc((100% - var(--largo)) / 2 + var(--gutter))); background: #E3F1F2 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='26'%3E%3Cpath d='M0 13 Q16 3 32 13 T64 13' fill='none' stroke='%23A9D2DB' stroke-width='2'/%3E%3C/svg%3E") repeat; }
+.piatti__l--liguria { margin-top: 18px; border-top: 2px solid var(--inchiostro); }
+.foto--liguria .foto-btn { box-shadow: 8px 8px 0 var(--mare-2); }
+.foto--liguria { max-width: 460px; justify-self: center; }
+
+.terra--milano { max-width: none; background: var(--notte); color: var(--carta); display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); grid-template-rows: auto 1fr auto; grid-template-areas: "testa foto" "hassan foto" "porta porta"; gap: 32px clamp(28px, 5vw, 72px); padding-left: max(var(--gutter), calc((100% - var(--largo)) / 2 + var(--gutter))); padding-right: max(var(--gutter), calc((100% - var(--largo)) / 2 + var(--gutter))); }
+.terra--milano .terra__testa { grid-area: testa; }
+.terra--milano h2 { color: var(--lume-2); }
+.terra--milano .terra__lead { color: #FFF8E8; }
+.milano__foto { grid-area: foto; display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(0, .65fr); gap: 16px; align-self: start; }
+.milano__foto .foto-btn { border-color: var(--carta); box-shadow: 6px 6px 0 var(--lume); }
+.milano__foto .foto--sala { grid-column: 1 / -1; }
+.terra--milano .didascalia { color: #C9C3D8; }
+.hassan { grid-area: hassan; align-self: start; border-top: 2px solid var(--nastro); padding-top: 20px; }
+.hassan__t { font-size: 1.22rem; }
+.hassan__t em { font-style: italic; color: var(--lume-2); }
+.hassan__cit { margin: 22px 0 0; padding: 18px 22px; background: var(--notte-2); border-left: 4px solid var(--lume); }
+.hassan__cit p { margin: 0 0 8px; font: italic 400 1.4rem/1.4 var(--f-testo); color: #FFF8E8; }
+.hassan__cit footer { font: 600 .9rem/1.4 var(--f-eti); color: #C9C3D8; }
+.foto--porta { grid-area: porta; max-width: 960px; justify-self: center; width: 100%; }
+.foto--porta .foto-btn { border-color: var(--carta); box-shadow: 8px 8px 0 var(--tenda-2); }
+
+/* ── la legenda: la carta completa ── */
+.legenda { padding: clamp(64px, 9vw, 120px) var(--gutter); }
+.legenda__quadro { position: relative; max-width: var(--largo); margin: 0 auto; padding: clamp(36px, 5vw, 64px) clamp(20px, 4vw, 56px) clamp(28px, 4vw, 48px); background: var(--carta-3); border: 14px solid var(--nastro); box-shadow: 0 0 0 2px var(--inchiostro), inset 0 0 0 2px var(--inchiostro); }
+.legenda__quadro::before { content: ""; position: absolute; inset: -9px; border: 4px dotted var(--terra); pointer-events: none; }
+.legenda__targa { position: absolute; top: -30px; left: 50%; transform: translateX(-50%); margin: 0; padding: 7px 26px; background: var(--nastro); border: 2px solid var(--inchiostro); font: 400 1rem/1 var(--f-deco); letter-spacing: .32em; text-transform: uppercase; }
+.legenda h2 { font: 400 clamp(2rem, 4vw, 3.4rem)/1.08 var(--f-titolo); text-align: center; margin-bottom: 12px; }
+.legenda__s { text-align: center; font-style: italic; color: var(--inchiostro-2); margin-bottom: clamp(28px, 4vw, 48px); }
+.legenda__griglia { columns: 3; column-gap: clamp(20px, 3vw, 44px); }
+.voce { break-inside: avoid; margin-bottom: 34px; }
+.voce__t { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; padding-bottom: 8px; border-bottom: 2px solid var(--inchiostro); font: 400 1.15rem/1.15 var(--f-deco); letter-spacing: .12em; text-transform: uppercase; }
+.voce__t::before { content: ""; width: 13px; height: 13px; border-radius: 50%; flex: none; background: radial-gradient(circle, #FFF6DD 0 22%, var(--lume) 40%, rgba(255, 181, 71, 0) 72%); box-shadow: 0 0 0 1.5px var(--inchiostro); }
+.voce__l { margin: 0; padding: 0; list-style: none; }
+.voce__l li { padding: 6px 0; border-bottom: 1.5px dotted rgba(29, 26, 36, .3); }
+.voce__nota { margin: 12px 0 0; font-style: italic; font-size: 1.02rem; color: var(--mattone); }
+.legenda__piede { margin: clamp(28px, 4vw, 44px) 0 0; text-align: center; font: italic 400 1.02rem/1.4 var(--f-testo); color: var(--inchiostro-2); }
+
+/* ── note di viaggio ── */
+.voci { max-width: var(--largo); margin: 0 auto; padding: clamp(40px, 6vw, 80px) var(--gutter) clamp(64px, 9vw, 110px); }
+.voci h2, .galleria h2, .faq h2, .orari-dove h2 { font: 400 clamp(2rem, 4vw, 3.4rem)/1.08 var(--f-titolo); margin-bottom: 12px; }
+.voci__s { font-style: italic; color: var(--inchiostro-2); margin-bottom: 30px; }
+.voci__griglia { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr)); gap: 24px; }
+.nota { position: relative; margin: 0; padding: 26px 24px 20px; background: var(--carta-3); border: 2px solid var(--inchiostro); box-shadow: 6px 6px 0 var(--tenda); }
+.nota::before { content: ""; position: absolute; top: -8px; right: 22px; width: 16px; height: 16px; border-radius: 50%; background: radial-gradient(circle, #FFF6DD 0 22%, var(--lume) 40%, rgba(255, 181, 71, 0) 72%); box-shadow: 0 0 0 1.5px var(--inchiostro); }
+.nota blockquote { margin: 0 0 14px; font: italic 400 1.14rem/1.55 var(--f-testo); }
+.nota figcaption { font: 600 .9rem/1.4 var(--f-eti); color: var(--inchiostro-2); }
+.voci__piede { margin-top: 22px; font: 600 .88rem/1.4 var(--f-eti); color: var(--inchiostro-2); }
+
+/* ── galleria ── */
+.galleria { max-width: var(--largo); margin: 0 auto; padding: 0 var(--gutter) clamp(64px, 9vw, 110px); }
+.galleria__griglia { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; margin-top: 26px; }
+.galleria__griglia .foto-btn { aspect-ratio: 4 / 3; box-shadow: 5px 5px 0 var(--inchiostro); }
+.galleria__griglia .foto--tenda { grid-row: span 2; display: flex; flex-direction: column; }
+/* la foto alta non detta l'altezza delle righe: riempie le due righe delle altre */
+.galleria__griglia .foto--tenda .foto-btn { aspect-ratio: auto; flex: 1; position: relative; min-height: 320px; }
+.galleria__griglia .foto--tenda .foto-btn img { position: absolute; inset: 0; object-position: 50% 0; }
+
+/* ── orari e dove ── */
+.orari-dove { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(28px, 5vw, 64px); max-width: var(--largo); margin: 0 auto; padding: clamp(64px, 9vw, 110px) var(--gutter); border-top: 2px solid var(--inchiostro); }
+.orari-dove__ind { font-size: 1.2rem; }
+.stato { font: 400 1.1rem/1.4 var(--f-testo); color: var(--mattone); min-height: 1.4em; }
+.orari { width: 100%; border-collapse: collapse; margin: 8px 0 22px; font: 400 1.08rem/1.4 var(--f-testo); }
+.orari__cap { text-align: left; padding-bottom: 8px; font: 700 .86rem/1 var(--f-eti); letter-spacing: .14em; text-transform: uppercase; color: var(--inchiostro-2); }
+.orari th, .orari td { padding: 10px 12px; border-bottom: 1.5px dotted rgba(29, 26, 36, .35); text-align: left; font-weight: 400; }
+.orari tr.is-today th, .orari tr.is-today td { background: var(--notte); color: var(--lume-2); }
+.contatti { margin: 0 0 18px; padding: 0; list-style: none; }
+.contatti li { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 14px; }
+.contatti__eti { font: 700 .86rem/1.4 var(--f-eti); letter-spacing: .1em; text-transform: uppercase; color: var(--inchiostro-2); }
+.contatti a { font: 400 1.6rem/1.3 var(--f-deco); text-decoration: none; }
+.orari-dove__nota { font-style: italic; color: var(--inchiostro-2); }
+.mappa { display: flex; flex-direction: column; gap: 16px; }
+.mappa iframe { width: 100%; min-height: 380px; flex: 1; border: 2px solid var(--inchiostro); box-shadow: 8px 8px 0 var(--terra); background: var(--carta-2); }
+.mappa .btn { align-self: flex-start; }
+
+/* ── domande ── */
+.faq { max-width: 880px; margin: 0 auto; padding: 0 var(--gutter) clamp(64px, 9vw, 110px); }
+.faq__lista { margin-top: 20px; border-top: 2px solid var(--inchiostro); }
+.faq details { border-bottom: 1.5px dotted rgba(29, 26, 36, .45); }
+.faq summary { cursor: pointer; padding: 16px 0; font: 400 1.3rem/1.35 var(--f-testo); list-style: none; display: flex; justify-content: space-between; gap: 16px; }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: "+"; font: 400 1.4rem/1 var(--f-testo); color: var(--mattone); }
+.faq details[open] summary::after { content: "–"; }
+.faq details p { margin: 0 0 18px; color: var(--inchiostro-2); }
+
+/* ── piè di pagina ── */
+.piede { background: var(--notte); color: var(--carta); text-align: center; padding: 56px var(--gutter) calc(56px + env(safe-area-inset-bottom)); border-top: 6px solid var(--nastro); }
+.piede p { margin: 0 0 8px; }
+.piede__chiusa { font: italic 400 1.6rem/1.3 var(--f-testo); color: var(--lume-2); margin-bottom: 18px !important; }
+.piede__cred { margin-top: 18px !important; font: 400 .92rem/1.6 var(--f-testo); color: #A9A3C3; max-width: 60em; margin-left: auto !important; margin-right: auto !important; }
+.piede a { color: #FFF8E8; }
+
+/* ── responsive ── */
+@media (max-width: 1180px) {
+  #burger { display: flex; }
+  .testata__nav { display: none; position: absolute; top: 100%; left: 0; right: 0; flex-direction: column; align-items: stretch; gap: 0; padding: 8px var(--gutter) 18px; background: var(--carta-3); border-bottom: 2px solid var(--inchiostro); margin-top: 6px; }
+  .testata__nav.nav-open { display: flex; }
+  .testata__nav a { font-size: 1rem; padding: 13px 0; border-bottom: 1px dotted rgba(29, 26, 36, .35); }
+  .testata__destra { margin-left: auto; }
+  .barra { display: grid; }
+  .piede { padding-bottom: calc(96px + env(safe-area-inset-bottom)); }
+}
+@media (max-width: 980px) {
+  .apertura { grid-template-columns: minmax(0, 1fr); }
+  .apertura__carta { max-width: 680px; }
+  .terra--piemonte { grid-template-columns: minmax(0, 1fr); grid-template-areas: "testa" "foto" "piatti"; }
+  .terra--liguria { grid-template-columns: minmax(0, 1fr); }
+  .terra--milano { grid-template-columns: minmax(0, 1fr); grid-template-areas: "testa" "foto" "hassan" "porta"; }
+  .legenda__griglia { columns: 2; }
+  .galleria__griglia { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .orari-dove { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 640px) {
+  body { font-size: 1.08rem; }
+  .testata__tel { display: none; }
+  .apertura h1 { font-size: 2.35rem; }
+  .apertura__s, .terra__lead { font-size: 1.14rem; }
+  .apertura__tasti .btn { flex: 1 1 100%; }
+  .carta { box-shadow: 6px 6px 0 var(--inchiostro); }
+  .legenda__griglia { columns: 1; }
+  .legenda__quadro { border-width: 10px; }
+  .galleria__griglia { grid-template-columns: minmax(0, 1fr); }
+  .galleria__griglia .foto--tenda { grid-row: auto; }
+  .galleria__griglia .foto--tenda .foto-btn { aspect-ratio: 3 / 4; flex: none; min-height: 0; }
+  .milano__foto { grid-template-columns: minmax(0, 1fr); }
+  .cartiglio { font-size: 1.02rem; padding: 7px 32px 8px; }
+  .hassan__cit p { font-size: 1.22rem; }
+  .mappa iframe { min-height: 300px; }
+}
+@media (max-width: 420px) {
+  .testata__logo { font-size: .68rem; }
+  .terra__foto--piemonte { grid-template-columns: minmax(0, 1fr); }
+  .terra__foto--piemonte .foto--alta { grid-row: auto; }
+  .terra__foto--piemonte .foto--alta .foto-btn { height: auto; }
+  .legenda-mini { gap: 6px 16px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .intro__in { animation: none; }
+}
