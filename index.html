@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
 <script>document.documentElement.classList.remove('no-js')</script>
 <title>Lungo la Notte — ristorante di carne sul Naviglio Grande, Via Lodovico il Moro 131, Milano</title>
 <meta name="description" content="Lungo la Notte, Via Lodovico il Moro 131 a Milano, in riva al Naviglio Grande: la carne dei prati di Fossano, un po' di Liguria e un bel po' di Milano. A cena fino alle 23:30. Telefono 02 813 9177.">
@@ -18,9 +19,7 @@
 <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="img/favicon-32.png" sizes="32x32" type="image/png">
 <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cookie&family=Federant&family=Limelight&family=Josefin+Slab:wght@600;700&family=Poiret+One&family=Sorts+Mill+Goudy:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="fonts/fonts.css?v=1">
 <link rel="stylesheet" href="css/styles.css?v=1">
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" defer></script>
@@ -277,7 +276,7 @@
       <p class="orari-dove__nota" data-i18n="d.nota">La sera conviene prenotare. Ingresso, tavoli e bagno accessibili in sedia a rotelle. Si paga anche con la carta. Ci sono i seggioloni per i bambini. Parcheggio gratuito in strada.</p>
     </div>
     <div class="mappa">
-      <iframe src="https://www.google.com/maps?q=Lungo+la+Notte,+Via+Lodovico+il+Moro+131,+20142+Milano&amp;z=16&amp;output=embed" title="Mappa: Lungo la Notte, Via Lodovico il Moro 131, Milano" data-i18n-title="d.mappa" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      <div class="mappa-clic" data-mappa-clic style="--mappa-h: 320px"><template><iframe src="https://www.google.com/maps?q=Lungo+la+Notte,+Via+Lodovico+il+Moro+131,+20142+Milano&amp;z=16&amp;output=embed" title="Mappa: Lungo la Notte, Via Lodovico il Moro 131, Milano" data-i18n-title="d.mappa" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></template><div class="mappa-clic__velo"><a class="mappa-clic__btn" href="https://www.google.com/maps/search/?api=1&amp;query=Lungo+la+Notte+Via+Lodovico+il+Moro+131+Milano" target="_blank" rel="noopener">Mostra la mappa</a><p class="mappa-clic__nota">La mappa è di Google: aprendola, Google riceve il tuo indirizzo IP e può usare i suoi cookie.</p></div></div>
       <a class="btn btn--tenda" href="https://www.google.com/maps/search/?api=1&amp;query=Lungo+la+Notte+Via+Lodovico+il+Moro+131+Milano" target="_blank" rel="noopener"><span data-i18n="d.btn">Indicazioni stradali</span></a>
     </div>
   </section>
@@ -301,7 +300,7 @@
   <p class="marchio marchio--piede"><span class="marchio__nome">Lungo la Notte</span><span class="marchio__sotto">Ristorante</span></p>
   <p class="piede__chiusa" data-i18n="z.chiusa">Ma basta sentimentalismi! Bon appétit.</p>
   <p>Via Lodovico il Moro 131 · 20142 Milano · <a href="tel:+39028139177">02 813 9177</a></p>
-  <p class="piede__cred" data-i18n="z.cred">Sito dimostrativo realizzato da <a href="https://bespokestud.io" rel="noopener">Bespoke Studio</a> · testi dal loro sito e dalla scheda Google (settembre 2026); recensioni pubbliche su Google; fotografie dal loro sito e dalla scheda Google; la carta è disegnata sui confini ISTAT e Natural Earth, nel segno della «Italie Gastronomique» di Umberto Zimelli (1931).</p>
+  <p class="piede__cred" data-i18n="z.cred">Sito dimostrativo realizzato da <a href="https://bespokestud.io" rel="noopener">Bespoke Studio</a> · <a href="privacy.html">Privacy</a> · testi dal loro sito e dalla scheda Google (settembre 2026); recensioni pubbliche su Google; fotografie dal loro sito e dalla scheda Google; la carta è disegnata sui confini ISTAT e Natural Earth, nel segno della «Italie Gastronomique» di Umberto Zimelli (1931).</p>
 </footer>
 
 <nav id="actionBar" class="barra" aria-label="Azioni rapide" data-i18n-aria="x.nav">
@@ -316,5 +315,6 @@
   <img id="lightboxImg" src="" alt="">
 </div>
 
+<script src="js/mappa-clic.js?v=1" defer></script>
 </body>
 </html>
